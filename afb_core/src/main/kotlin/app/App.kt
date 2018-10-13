@@ -9,14 +9,20 @@ class App {
         val lambdaLogger = context.logger
         val followConditionText = "エンジニア"
 
-        // search follower
+        // search followerId
         val twitter: Twitter = TwitterFactory.getSingleton()
-        val followersList = twitter.getFollowersList(null, 1)
+        val followersIDs = twitter.getFollowersIDs(-1)
+        val friendsIDs = twitter.getFriendsIDs(-1)
+        lambdaLogger.log("followersCount: ${followersIDs.iDs.size}, friendsCount: ${friendsIDs.iDs.size}")
 
-        //if not follow and contain engineer, follow back
-        followersList
+        val oneWayFriendIds = followersIDs.iDs.filterNot { e -> friendsIDs.iDs.contains(e) }.toLongArray()
+        val oneWayFriends = twitter.lookupUsers(*oneWayFriendIds)
+        lambdaLogger.log("oneWayFriendsCount: ${oneWayFriends.size}")
+
+        //if not send follow request and contains keyword
+        oneWayFriends
                 .stream()
-                .filter{t ->  !t.isFollowRequestSent || t.description.contains(followConditionText)}
+                .filter{f -> !f.isFollowRequestSent && f.description.contains(followConditionText)}
                 .peek{t -> twitter.createFriendship(t.id); lambdaLogger.log("follow " + t.screenName)}
     }
 }
