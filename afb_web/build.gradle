@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		kotlinVersion = '1.2.70'
-		springBootVersion = '2.1.0.BUILD-SNAPSHOT'
+		springBootVersion = '1.5.16.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -12,7 +12,6 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
 	}
 }
 
@@ -25,17 +24,17 @@ apply plugin: 'war'
 
 group = 'dkurata38'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.10
+sourceCompatibility = 1.8
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.10"
+		jvmTarget = "1.8"
 	}
 }
 compileTestKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.10"
+		jvmTarget = "1.8"
 	}
 }
 
@@ -56,17 +55,18 @@ dependencyManagement {
 }
 
 dependencies {
-	implementation('org.springframework.boot:spring-boot-starter-aop')
-	implementation('org.springframework.boot:spring-boot-starter-security')
-	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
-	implementation('org.springframework.boot:spring-boot-starter-web')
-	implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	compile('org.springframework.boot:spring-boot-starter-aop')
+//	compile('org.springframework.boot:spring-boot-starter-security')
+	compile("org.springframework.social:spring-social-twitter")
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	compile("org.jetbrains.kotlin:kotlin-reflect")
 	compileOnly('org.projectlombok:lombok')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation('org.springframework.security:spring-security-test')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+//	testCompile('org.springframework.security:spring-security-test')
 	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-dynamodb
 	compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.425'
 }
