@@ -9,4 +9,4 @@
 
 rootProject.name = 'auto_follow_back'
 
-include("afb_web")
+include 'afb_web', 'afb_batch', 'afb_domain'
