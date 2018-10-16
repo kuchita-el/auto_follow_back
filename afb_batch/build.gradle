@@ -8,7 +8,5 @@ dependencies {
 	testImplementation('org.springframework.batch:spring-batch-test')
 	compile project(":afb_domain")
 
-    // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
-    compile group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.7'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

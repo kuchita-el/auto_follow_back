@@ -6,5 +6,6 @@ import dkurata38.afb.domain.service.AutoFollowService
 
 class AutoFollowWriter(val autoFollowService: AutoFollowService): ItemWriter<TwitterUser> {
 	override fun write(items: List<TwitterUser>) {
+		autoFollowService.autoFollow("", "", "エンジニア")
 	}
 }
