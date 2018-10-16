@@ -1,10 +1,10 @@
 # プロジェクト構成
 
 ## 概要
-auto_follow_back
-└afb_web
-└afb_batch
-└afb_domain
+auto_follow_back<br>
+└afb_web<br>
+└afb_batch<br>
+└afb_domain<br>
 
 ## auto_follow_back
 Gradle親プロジェクト。実体はなく、プロジェクト全体で使用するプラグインやSping/Kotlinのバージンを定義している。
