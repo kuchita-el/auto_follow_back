@@ -17,7 +17,8 @@ import javax.sql.DataSource
 @EnableSocial
 class SocialConfig(private val dataSource: DataSource): SocialConfigurerAdapter(){
     override fun getUsersConnectionRepository(connectionFactoryLocator: ConnectionFactoryLocator?): UsersConnectionRepository {
-        return JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText())
+        val usersConnectionFactory = JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText())
+		return usersConnectionFactory
     }
 
     override fun getUserIdSource(): UserIdSource {
