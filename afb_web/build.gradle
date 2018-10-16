@@ -1,61 +1,11 @@
-buildscript {
-	ext {
-		kotlinVersion = '1.2.71'
-		springBootVersion = '1.5.16.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-	}
-}
-
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-group = 'dkurata38'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
-compileKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
-	}
-}
-compileTestKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
-	}
-}
-
-repositories {
-	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
-}
 
 configurations {
 	providedRuntime
 }
 
-dependencyManagement {
-	imports {
-		mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
-	}
-}
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
-	compile('org.springframework.boot:spring-boot-starter-jooq')
 	compile("org.springframework.social:spring-social-twitter")
 	compile("org.springframework.social:spring-social-security")
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
@@ -65,7 +15,6 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	compile project(":afb_domain")
 	compileOnly('org.projectlombok:lombok')
-	runtimeOnly('org.postgresql:postgresql')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 //	testCompile('org.springframework.security:spring-security-test')
