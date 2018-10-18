@@ -1,8 +1,12 @@
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation project(":afb_domain")
+	runtimeOnly('org.postgresql:postgresql')
 	compileOnly('org.projectlombok:lombok')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-}
+    // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
+    compile group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.7'}

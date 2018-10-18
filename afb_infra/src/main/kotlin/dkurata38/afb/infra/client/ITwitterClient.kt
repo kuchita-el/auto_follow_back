@@ -1,5 +1,6 @@
-package dkurata38.afb.domain.client
+package dkurata38.afb.infra.client
 
+import dkurata38.afb.domain.client.TwitterClient
 import twitter4j.Twitter
 import twitter4j.TwitterFactory
 import twitter4j.auth.AccessToken
@@ -22,7 +23,8 @@ class ITwitterClient: TwitterClient {
 	
 	override fun lookUpUsers(token: String, secret: String, ids: List<Long>): List<TwitterUser> {
 		val twitter = createTwitterInstance(token, secret)
-		val users = twitter.lookupUsers(*ids.toLongArray())
+		val chunkedIds = ids.chunked(50)
+		val users = chunkedIds.map { e -> twitter.lookupUsers(*e.toLongArray()) }.flatten()
 		val twitterUsers = users.stream().map{u -> TwitterUser(u.id, u.screenName, u.description, u.isFollowRequestSent)}.collect(Collectors.toList())
 		return twitterUsers
 	}

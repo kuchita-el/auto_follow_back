@@ -1,7 +1,9 @@
 package dkurata38.afb.domain.client
 
 import dkurata38.afb.domain.entity.TwitterUser
+import org.springframework.stereotype.Component
 
+@Component
 interface TwitterClient {
 	fun getFollowersIds(token: String, secret: String): List<Long>
 	
