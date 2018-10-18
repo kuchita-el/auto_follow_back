@@ -11,7 +11,7 @@ import org.springframework.social.connect.ConnectionRepository
 import org.springframework.social.twitter.api.Twitter
 
 @Controller
-@RequestMapping("follow")
+@RequestMapping("/follow")
 class FollowController(private val autoFollowService: AutoFollowService, private val connectionRepository: ConnectionRepository) {
 	
 	@GetMapping("config")
@@ -27,6 +27,6 @@ class FollowController(private val autoFollowService: AutoFollowService, private
 		}
 		val connectionData = connection.createData()
 		autoFollowService.autoFollow(connectionData.accessToken, connectionData.secret, "エンジニア");
-		return "redirect:/home/index"
+		return "redirect:/"
 	}
 }
