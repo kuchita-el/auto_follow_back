@@ -1,4 +1,4 @@
-package dkurata38.afb.web.config
+package dkurata38.afb.web.security
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment

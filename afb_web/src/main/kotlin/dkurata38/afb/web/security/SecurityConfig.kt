@@ -1,4 +1,4 @@
-package dkurata38.afb.web.config
+package dkurata38.afb.web.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,11 +16,7 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http
-                .authorizeRequests()
-                .antMatchers("/connect/**", "/").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .csrf().ignoringAntMatchers("/connect/**")
+                .csrf()//.ignoringAntMatchers("/connect/**")
                 .and()
                 .apply(SpringSocialConfigurer())
     }
