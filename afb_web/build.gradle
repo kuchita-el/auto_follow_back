@@ -1,0 +1,22 @@
+apply plugin: 'org.springframework.boot'
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile("org.springframework.social:spring-social-twitter")
+	compile("org.springframework.social:spring-social-security")
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	compile("org.jetbrains.kotlin:kotlin-reflect")
+	compile project(":afb_domain")
+	compile project(":afb_infra")
+	compileOnly('org.projectlombok:lombok')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+//	testCompile('org.springframework.security:spring-security-test')
+}
