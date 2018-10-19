@@ -5,6 +5,7 @@ auto_follow_back<br>
 └afb_web<br>
 └afb_batch<br>
 └afb_domain<br>
+└afb_infra<br>
 
 ## auto_follow_back
 Gradle親プロジェクト。実体はなく、プロジェクト全体で使用するプラグインやSping/Kotlinのバージョンを定義している。<br>
@@ -20,6 +21,9 @@ Spring Bootを使用したBatchプログラム。<br>
 
 ## afb_domain
 ビジネスロジックを管理するモジュールで、afb_webやafb_batchから呼び出すことで動作をする。
+
+## afb_infra
+DBやTwitterAPIなどと連携するクラスが実装されている。
 
 # 環境構築
 ## 必要なもの
