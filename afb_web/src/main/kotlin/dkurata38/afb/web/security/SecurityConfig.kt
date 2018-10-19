@@ -14,11 +14,20 @@ import org.springframework.social.security.SpringSocialConfigurer
 @EnableWebSecurity
 class SecurityConfig: WebSecurityConfigurerAdapter() {
 
+    @Bean
+    fun springSocialConfigurer(): SpringSocialConfigurer{
+        val springSocialConfigurer = SpringSocialConfigurer()
+        springSocialConfigurer.postLoginUrl("/")
+        springSocialConfigurer.alwaysUsePostLoginUrl(true)
+        springSocialConfigurer.defaultFailureUrl("/")
+        return springSocialConfigurer
+    }
+
     override fun configure(http: HttpSecurity) {
         http
                 .csrf()//.ignoringAntMatchers("/connect/**")
                 .and()
-                .apply(SpringSocialConfigurer())
+                .apply(springSocialConfigurer())
     }
 
     @Bean

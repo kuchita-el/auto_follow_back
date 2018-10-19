@@ -14,7 +14,7 @@ class HomeController(private val twitter: Twitter, private val connectionReposit
     @GetMapping
     fun index(model: Model): String {
         if (connectionRepository.findPrimaryConnection(Twitter::class.java) == null){
-            return "redirect:/connect/twitter"
+            return "home/index"
         }
         model.addAttribute("twitterProfile" ,twitter.userOperations().userProfile)
         val friendOperations = twitter.friendOperations()
