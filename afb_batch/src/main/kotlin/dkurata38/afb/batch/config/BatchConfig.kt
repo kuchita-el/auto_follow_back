@@ -7,9 +7,9 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.context.annotation.Bean
 import dkurata38.afb.batch.autofollow.AutoFollowWriter
 import org.springframework.batch.core.Step
-import dkurata38.afb.domain.entity.TwitterUser
+import dkurata38.afb.domain.twitteruser.TwitterUser
 import org.springframework.batch.core.Job
-import dkurata38.afb.domain.service.AutoFollowService
+import dkurata38.afb.domain.autofollow.AutoFollowService
 
 @Configuration
 @EnableBatchProcessing

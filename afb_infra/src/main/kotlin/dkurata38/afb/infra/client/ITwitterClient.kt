@@ -1,11 +1,11 @@
 package dkurata38.afb.infra.client
 
-import dkurata38.afb.domain.client.TwitterClient
+import dkurata38.afb.domain.twitteruser.TwitterClient
 import twitter4j.Twitter
 import twitter4j.TwitterFactory
 import twitter4j.auth.AccessToken
 
-import dkurata38.afb.domain.entity.TwitterUser
+import dkurata38.afb.domain.twitteruser.TwitterUser
 import java.util.stream.Collectors
 import org.springframework.stereotype.Component
 
@@ -25,7 +25,7 @@ class ITwitterClient: TwitterClient {
 		val twitter = createTwitterInstance(token, secret)
 		val chunkedIds = ids.chunked(50)
 		val users = chunkedIds.map { e -> twitter.lookupUsers(*e.toLongArray()) }.flatten()
-		val twitterUsers = users.stream().map{u -> TwitterUser(u.id, u.screenName, u.description, u.isFollowRequestSent)}.collect(Collectors.toList())
+		val twitterUsers = users.stream().map{u -> TwitterUser(u.id, u.screenName, u.description, u.isFollowRequestSent) }.collect(Collectors.toList())
 		return twitterUsers
 	}
 	

@@ -1,4 +1,4 @@
-package dkurata38.afb.domain.entity
+package dkurata38.afb.domain.twitteruser
 
 open class TwitterUser (
 		private val id: Long,

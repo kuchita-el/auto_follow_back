@@ -1,6 +1,6 @@
-package dkurata38.afb.domain.service
+package dkurata38.afb.domain.autofollow
 
-import dkurata38.afb.domain.client.TwitterClient
+import dkurata38.afb.domain.twitteruser.TwitterClient
 import org.springframework.stereotype.Service
 
 @Service
