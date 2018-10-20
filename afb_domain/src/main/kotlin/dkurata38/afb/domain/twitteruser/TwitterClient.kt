@@ -1,6 +1,5 @@
-package dkurata38.afb.domain.client
+package dkurata38.afb.domain.twitteruser
 
-import dkurata38.afb.domain.entity.TwitterUser
 import org.springframework.stereotype.Component
 
 @Component
@@ -9,7 +8,7 @@ interface TwitterClient {
 	
 	fun getFriendsIds(token: String, secret: String): List<Long>
 	
-	fun lookUpUsers(token: String, secret: String, ids: List<Long>): List<TwitterUser> 
+	fun lookUpUsers(token: String, secret: String, ids: List<Long>): List<TwitterUser>
 	
 	fun createFriendShip(token: String, secret: String, id: Long)
 }
