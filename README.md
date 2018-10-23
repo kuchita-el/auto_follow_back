@@ -27,10 +27,9 @@ DBやTwitterAPIなどと連携するクラスが実装されている。
 
 # 環境構築
 ## 必要なもの
-- postgresql
-- java8
-- kotlin
-- gradle
+- docker
+- docker-compose
+
 - twitterアプリケーション
 
 ## 準備
@@ -38,10 +37,7 @@ DBやTwitterAPIなどと連携するクラスが実装されている。
 - databaseとテーブル作成
 
 ## 実行方法
-### afb_web
-
 ```
-$ ./gradlew run
+$ cd auto_follow_back
+$ docker-compose up -d
 ```
-
-### afb_batch
