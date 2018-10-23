@@ -9,4 +9,5 @@ dependencies {
 	compileOnly('org.projectlombok:lombok')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
     // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
-    compile group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.7'}
+    compile group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.7'
+}
