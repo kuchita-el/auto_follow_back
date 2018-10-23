@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  web:
+    image: "java:8-alpine"
+    volumes:
+      - "./:"
+    ports:
+      - "80:8080"
+    links:
+      - "db"
+    volumes:
+      - "../auto_follow_back:~/auto_follow_back"
+    command: "cd auto_follow_back/afb_web && ../gradrew bootRun"
+
+  batch:
+    image: "java:8-alpine"
+    volumes:
+      - "./:"
+    links:
+      - "db"
+    volumes:
+      - "../auto_follow_back:~/auto_follow_back"
+    command: "cd auto_follow_back/afb_batch && ../gradrew bootRun"
+
+  db:
+    image: "postgres:10.5-alpine"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
