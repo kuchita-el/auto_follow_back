@@ -1,6 +1,13 @@
 version: "3"
 
 services:
+  db:
+    image: "postgres:10.5-alpine"
+    ports:
+      - "5432"
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+
   web:
     image: "java:8-alpine"
     volumes:
@@ -10,8 +17,8 @@ services:
     links:
       - "db"
     volumes:
-      - "../auto_follow_back:~/auto_follow_back"
-    command: "cd auto_follow_back/afb_web && ../gradrew bootRun"
+      - "../auto_follow_back:/auto_follow_back"
+    command: "apk update && apk add bash && /auto_follow_back/./gradrew :afb_web:bootRun"
 
   batch:
     image: "java:8-alpine"
@@ -20,12 +27,5 @@ services:
     links:
       - "db"
     volumes:
-      - "../auto_follow_back:~/auto_follow_back"
-    command: "cd auto_follow_back/afb_batch && ../gradrew bootRun"
-
-  db:
-    image: "postgres:10.5-alpine"
-    ports:
-      - "5432:5432"
-    volumes:
-      - "./data/postgres:/var/lib/postgresql/data"
+      - "../auto_follow_back:/home/auto_follow_back"
+    command: "apk update && apk add bash && /auto_follow_back/./gradrew :afb_batch:bootRun"
