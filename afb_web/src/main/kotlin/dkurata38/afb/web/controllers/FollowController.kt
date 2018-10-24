@@ -27,7 +27,7 @@ class FollowController(private val autoFollowService: AutoFollowService, private
 	}
 
 
-	@PostMapping("")
+	@PostMapping(value = "")
 	fun execute(): RedirectView{
 		val connection = connectionRepository.findPrimaryConnection(Twitter::class.java) ?: return RedirectView("/")
 		val connectionData = connection.createData()

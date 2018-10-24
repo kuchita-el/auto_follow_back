@@ -1390,7 +1390,7 @@ bookmark:
   label: bookmark
   search:
     terms:
-      - save
+      - saveAndFlush
   styles:
     - solid
     - regular
@@ -2655,7 +2655,7 @@ cloud:
   label: Cloud
   search:
     terms:
-      - save
+      - saveAndFlush
   styles:
     - solid
   unicode: f0c2
@@ -6356,7 +6356,7 @@ hdd:
       - hard drive
       - harddrive
       - machine
-      - save
+      - saveAndFlush
       - storage
   styles:
     - solid
@@ -9310,7 +9310,7 @@ piggy-bank:
   label: Piggy Bank
   search:
     terms:
-      - save
+      - saveAndFlush
       - savings
   styles:
     - solid

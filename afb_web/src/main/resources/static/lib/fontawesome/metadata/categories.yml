@@ -269,7 +269,7 @@ business:
     - print
     - project-diagram
     - registered
-    - save
+    - saveAndFlush
     - sitemap
     - socks
     - sticky-note
@@ -415,7 +415,7 @@ computers:
     - plug
     - power-off
     - print
-    - save
+    - saveAndFlush
     - server
     - stream
     - tablet
@@ -502,7 +502,7 @@ design:
     - ruler-combined
     - ruler-horizontal
     - ruler-vertical
-    - save
+    - saveAndFlush
     - splotch
     - spray-can
     - stamp
@@ -658,7 +658,7 @@ files:
     - folder
     - folder-open
     - paste
-    - save
+    - saveAndFlush
     - sticky-note
   label: Files
 gender:
@@ -840,7 +840,7 @@ interfaces:
     - reply-all
     - rss
     - rss-square
-    - save
+    - saveAndFlush
     - screwdriver
     - search
     - search-minus
@@ -1273,7 +1273,7 @@ objects:
     - ruler-combined
     - ruler-horizontal
     - ruler-vertical
-    - save
+    - saveAndFlush
     - school
     - screwdriver
     - search

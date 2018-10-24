@@ -9,10 +9,18 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.social.security.SocialUser
 import org.springframework.social.security.SocialUserDetailsService
 import org.springframework.social.security.SpringSocialConfigurer
+import org.springframework.security.config.annotation.web.builders.WebSecurity
+
+
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig: WebSecurityConfigurerAdapter() {
+
+    @Throws(Exception::class)
+    override fun configure(web: WebSecurity) {
+        web.ignoring().antMatchers("/webjars/**", "/favicon.ico", "/css/**", "/js/**", "/img/**", "lib/*")
+    }
 
     @Bean
     fun springSocialConfigurer(): SpringSocialConfigurer{
@@ -25,16 +33,13 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http
+                .authorizeRequests()
+                .antMatchers("/", "/signin/*", "/auth/*").permitAll()
+                .antMatchers("/api/session").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .csrf()//.ignoringAntMatchers("/connect/**")
                 .and()
                 .apply(springSocialConfigurer())
-    }
-
-    @Bean
-    fun socialUserDetailsService(): SocialUserDetailsService {
-        return SocialUserDetailsService {userId ->
-            val userDetails:UserDetails = userDetailsService().loadUserByUsername(userId)
-            SocialUser(userDetails.username, userDetails.password, userDetails.authorities)
-        }
     }
 }
