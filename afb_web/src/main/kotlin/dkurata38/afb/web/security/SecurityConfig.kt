@@ -34,7 +34,7 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/signin/*", "/auth/*").permitAll()
+                .antMatchers("/", "/connect/*", "/auth/*").permitAll()
                 .antMatchers("/api/session").permitAll()
                 .anyRequest().authenticated()
                 .and()

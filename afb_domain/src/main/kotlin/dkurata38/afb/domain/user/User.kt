@@ -6,25 +6,31 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "users")
-class User(
-        @Id
-        @Column(name = "userid")
-        private val userId: String,
-        @Column(name="username")
-        private val userName: String,
-        @Column(name="password")
-        private val encodedPassword: String) : Serializable {
+class User internal constructor() : Serializable {
+
+    @Id
+    @Column(name = "userid")
+    private var userId: String? = null
+    @Column(name="username")
+    private var userName: String? = null
+    @Column(name="password")
+    private var encodedPassword: String? = null
+    constructor(userId: String, userName: String, encodedPassword: String):this(){
+        this.userId = userId
+        this.userName = userName
+        this.encodedPassword = encodedPassword
+    }
 
     fun getUserId(): String {
-        return userId
+        return userId!!
     }
 
     fun getUserName(): String {
-        return userName
+        return userName!!
     }
 
     fun getEncodedPassword(): String{
-        return encodedPassword
+        return encodedPassword!!
     }
 
     companion object {
