@@ -1,22 +1,35 @@
 package dkurata38.afb.domain.followkeyword
 
-import javax.persistence.EmbeddedId
-import javax.persistence.Entity
-import javax.persistence.Table
+import dkurata38.afb.domain.userconncetion.UserConnectionKey
+import javax.persistence.*
 
 
 @Entity
 @Table(name = "follow_keyword")
-class FollowKeyword() {
-    @EmbeddedId
-    private val followKeywordKey: FollowKeywordKey? = null
-    private val keyword: String? = null
+class FollowKeyword internal constructor() {
 
-    fun getFollowKeywordKey(): FollowKeywordKey? {
-        return followKeywordKey
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private var id: Int? = null
+
+    @Embedded
+    private var followKeywordKey: UserConnectionKey? = null
+    private var keyword: String? = null
+
+    constructor(followKeywordKey: UserConnectionKey, keyword: String):this(){
+        this.followKeywordKey = followKeywordKey
+        this.keyword = keyword
     }
 
-    fun getKeyword(): String? {
-        return keyword
+    fun getId(): Int? {
+        return id
+    }
+
+    fun getKeyword(): String {
+        return keyword!!
+    }
+
+    fun configure(keyword: String): Unit {
+        this.keyword = keyword
     }
 }
