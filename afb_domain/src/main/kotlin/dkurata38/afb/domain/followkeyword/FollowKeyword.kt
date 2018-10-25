@@ -13,11 +13,11 @@ class FollowKeyword internal constructor() {
     private var id: Int? = null
 
     @Embedded
-    private var followKeywordKey: UserConnectionKey? = null
+    private var userConnectionKey: UserConnectionKey? = null
     private var keyword: String? = null
 
-    constructor(followKeywordKey: UserConnectionKey, keyword: String):this(){
-        this.followKeywordKey = followKeywordKey
+    constructor(userConnectionKey: UserConnectionKey, keyword: String):this(){
+        this.userConnectionKey = userConnectionKey
         this.keyword = keyword
     }
 
