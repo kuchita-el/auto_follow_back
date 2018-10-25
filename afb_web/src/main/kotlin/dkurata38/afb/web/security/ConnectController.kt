@@ -18,16 +18,18 @@ import org.springframework.web.servlet.view.RedirectView
 @Controller
 class ConnectController(private val connectionFactoryLocator: ConnectionFactoryLocator, connectionRepository: ConnectionRepository,
                         private val usersConnectionRepository: UsersConnectionRepository) : ConnectController(connectionFactoryLocator, connectionRepository) {
+
+    private val sessionStrategy: SessionStrategy = HttpSessionSessionStrategy()
+    private val connectSupport: ConnectSupport = ConnectSupport(sessionStrategy)
+
     override fun connectionStatusRedirect(providerId: String?, request: NativeWebRequest?): RedirectView {
         return RedirectView("/")
     }
 
     @RequestMapping(value = "/{providerId}", method = [RequestMethod.GET], params = ["oauth_token"])
     override fun oauth1Callback(@PathVariable providerId: String?, request: NativeWebRequest?): RedirectView {
-        val sessionStrategy: SessionStrategy = HttpSessionSessionStrategy()
         try {
             val connectionFactory = connectionFactoryLocator.getConnectionFactory(providerId) as OAuth1ConnectionFactory<*>
-            val connectSupport: ConnectSupport = ConnectSupport(sessionStrategy)
             val connection = connectSupport.completeConnection(connectionFactory, request)
             val userIds = usersConnectionRepository.findUserIdsWithConnection(connection)
             usersConnectionRepository.createConnectionRepository(userIds[0]).updateConnection(connection)

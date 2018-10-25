@@ -19,7 +19,7 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(web: WebSecurity) {
-        web.ignoring().antMatchers("/webjars/**", "/favicon.ico", "/css/**", "/js/**", "/img/**", "lib/*")
+        web.ignoring().antMatchers("/webjars/**", "/favicon.ico", "/css/**", "/js/**", "/img/**", "/lib/**")
     }
 
     @Bean
@@ -34,11 +34,11 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/connect/*", "/auth/*").permitAll()
+                .antMatchers("/", "/connect/*").permitAll()
                 .antMatchers("/api/session").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .csrf()//.ignoringAntMatchers("/connect/**")
+                .csrf()
                 .and()
                 .apply(springSocialConfigurer())
     }
