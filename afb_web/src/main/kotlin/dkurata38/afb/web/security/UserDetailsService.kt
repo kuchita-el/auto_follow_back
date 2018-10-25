@@ -25,6 +25,6 @@ class UserDetailsService(private val userJpaRepository: UserJpaRepository): User
      */
     override fun loadUserByUsername(username: String): UserDetails {
         val user: User = userJpaRepository.findByUserName(username) ?: throw UsernameNotFoundException("The requested user is not found.")
-        return dkurata38.afb.web.security.UserDetails(user)
+        return UserDetails(user)
     }
 }
