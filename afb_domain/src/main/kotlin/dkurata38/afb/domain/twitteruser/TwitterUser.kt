@@ -1,10 +1,12 @@
 package dkurata38.afb.domain.twitteruser
 
+import java.io.Serializable
+
 open class TwitterUser (
 		private val id: Long,
 		private val screenName: String,
 		private val description: String,
-		private val sentRequest: Boolean){
+		private val sentRequest: Boolean): Serializable{
 	
 	fun getId(): Long {
 		return id

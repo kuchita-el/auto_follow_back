@@ -35,8 +35,7 @@ class ITwitterClient: TwitterClient {
 	}
 	
 	private fun createTwitterInstance(token: String, secret: String): Twitter {
-		val accessToken: AccessToken = AccessToken(token, secret)
-		val twitter: Twitter = TwitterFactory().getInstance(accessToken)
-		return twitter		
+		val accessToken = AccessToken(token, secret)
+		return TwitterFactory().getInstance(accessToken)
 	}
 }
