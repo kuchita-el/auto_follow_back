@@ -15,9 +15,10 @@
                         指定したキーワードをもとに、自動でフォロバするツールです。
                         例えば、キーワードにエンジニアと指定したら、プロフィールにエンジニアと書かれたアカウントのみ自動でフォローバックをします。
                     </p>
-                    <form th:action="@{/connect/twitter}" method="POST">
-                        <button class="btn btn-primary" th:if="${user == null}">Twitterにログイン</button>
+                    <form th:action="@{/connect/twitter}" method="POST" th:if="${userSession == null || !userSession.authenticated()}">
+                        <button class="btn btn-primary">Twitterにログイン</button>
                     </form>
+                    <a class="btn btn-primary" href="/follow/config" th:if="${userSession != null &amp;&amp; userSession.authenticated()}">フォロバをする</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -29,7 +30,8 @@
                         自分のアカウント以外にも、メディアアーティスト落合陽一さんのツイートをもとにつぶやくことができます。
                     </p>
                     <form th:action="@{/connect/twitter}" method="POST">
-                        <button class="btn btn-primary">Twitterにログイン</button>
+                        <button class="btn btn-primary" th:if="${userSession == null || !userSession.authenticated()}">Twitterにログイン</button>
+                        <button class="btn btn-primary" th:if="${userSession != null &amp;&amp; userSession.authenticated()}">ツイート自動生成をする</button>
                     </form>
                 </div>
             </div>

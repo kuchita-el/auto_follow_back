@@ -1,42 +1,49 @@
 package dkurata38.afb.domain.user
 
 import java.io.Serializable
-import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "users")
+@Table(name = "sns_user")
 class User internal constructor() : Serializable {
 
     @Id
-    @Column(name = "userid")
-    private var userId: String? = null
-    @Column(name="username")
-    private var userName: String? = null
-    @Column(name="password")
-    private var encodedPassword: String? = null
-    constructor(userId: String, userName: String, encodedPassword: String):this(){
-        this.userId = userId
-        this.userName = userName
-        this.encodedPassword = encodedPassword
+    @Column(name = "id")
+    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "seq_user_id")
+    @SequenceGenerator(name = "seq_user_id", sequenceName = "seq_user_id")
+    private var id: Int? = null
+
+    @Embedded
+    private var snsLoginId: SnsLoginId? = null
+
+    @Column(name="display_name")
+    private var displayName: String? = null
+
+    @Embedded
+    private var token: Token? = null
+    constructor(snsLoginId: SnsLoginId, displayName: String, token: Token):this(){
+        this.snsLoginId = snsLoginId
+        this.displayName = displayName
+        this.token = token
     }
 
-    fun getUserId(): String {
-        return userId!!
+    fun getId(): Int? {
+        return id
     }
 
-    fun getUserName(): String {
-        return userName!!
+    fun getSndLoginId(): SnsLoginId {
+        return snsLoginId!!
     }
 
-    fun getEncodedPassword(): String{
-        return encodedPassword!!
+    fun getDisplayName(): String {
+        return displayName!!
     }
 
-    companion object {
-        fun registerSocialUser(userId: String, userName: String): User{
-            val encodedPassword: String = UUID.randomUUID().toString()
-            return User(userId, userName, encodedPassword)
-        }
+    fun getToken(): Token {
+        return token!!
+    }
+
+    fun updateToken(token: Token) {
+        this.token = token
     }
 }

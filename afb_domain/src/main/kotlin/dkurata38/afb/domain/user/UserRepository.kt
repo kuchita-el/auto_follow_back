@@ -1,10 +1,7 @@
-//package dkurata38.afb.domain.user
-//
-//import org.springframework.stereotype.Repository
-//
-//@Repository
-//interface UserRepository {
-//    fun findById(id: Int): User?
-//
-//    fun insert(user: User): User
-//}
+package dkurata38.afb.domain.user
+
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface UserRepository: JpaRepository<User, Int>{
+    fun findBySnsLoginId(snsLoginId: SnsLoginId): User?
+}
