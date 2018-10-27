@@ -116,7 +116,7 @@ files-o:
   name: copy
   prefix: far
 floppy-o:
-  name: save
+  name: saveAndFlush
   prefix: far
 gbp:
   name: pound-sign

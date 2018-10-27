@@ -11,4 +11,12 @@ interface TwitterClient {
 	fun lookUpUsers(token: String, secret: String, ids: List<Long>): List<TwitterUser>
 	
 	fun createFriendShip(token: String, secret: String, id: Long)
+
+//	fun getFollowersIds(accessToken: Token): List<Long>
+//
+//	fun getFriendsIds(accessToken: Token): List<Long>
+//
+//	fun lookUpUsers(accessToken: Token, ids: List<Long>): List<TwitterUser>
+//
+//	fun createFriendShip(accessToken: Token, id: Long)
 }

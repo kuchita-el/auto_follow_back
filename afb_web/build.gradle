@@ -6,8 +6,9 @@ configurations {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
-	compile("org.springframework.social:spring-social-twitter")
-	compile("org.springframework.social:spring-social-security")
+//	compile("org.springframework.social:spring-social-twitter")
+//	compile("org.springframework.social:spring-social-security")
+//	compile("org.springframework.session:spring-session-jdbc")
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
