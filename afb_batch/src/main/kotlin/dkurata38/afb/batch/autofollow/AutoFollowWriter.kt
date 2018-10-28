@@ -1,11 +1,19 @@
 package dkurata38.afb.batch.autofollow
 
-import org.springframework.batch.item.ItemWriter
-import dkurata38.afb.domain.twitteruser.TwitterUser
 import dkurata38.afb.domain.autofollow.AutoFollowService
+import org.slf4j.LoggerFactory
+import org.springframework.batch.item.ItemWriter
 
-class AutoFollowWriter(val autoFollowService: AutoFollowService): ItemWriter<TwitterUser> {
-	override fun write(items: List<TwitterUser>) {
-		autoFollowService.autoFollow("", "", "エンジニア")
+class AutoFollowWriter(private val autoFollowService: AutoFollowService): ItemWriter<AutoFollowResouceDto> {
+	private val log = LoggerFactory.getLogger(AutoFollowWriter::class.java)
+
+	override fun write(items: List<AutoFollowResouceDto>) {
+		log.info("Writer開始")
+		items.forEach{i ->
+			autoFollowService.autoFollow(i.getToken(), i.getFollowKeyword().getKeyword())
+			val userId = i.getFollowKeyword().getUserId()
+			log.info("ユーザ{$userId}を処理しました。")
+		}
+		log.info("Writer終了")
 	}
 }

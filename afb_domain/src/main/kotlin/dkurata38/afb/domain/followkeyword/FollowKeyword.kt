@@ -25,6 +25,10 @@ class FollowKeyword internal constructor() :Serializable{
         this.keyword = keyword
     }
 
+    fun getUserId(): Int {
+        return userId!!
+    }
+
     fun getKeyword(): String {
         return keyword!!
     }

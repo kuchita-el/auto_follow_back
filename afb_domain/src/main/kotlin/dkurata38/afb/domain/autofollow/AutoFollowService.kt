@@ -1,12 +1,13 @@
 package dkurata38.afb.domain.autofollow
 
 import dkurata38.afb.domain.twitteruser.TwitterClient
+import dkurata38.afb.domain.twitteruser.TwitterUser
 import dkurata38.afb.domain.user.Token
 import org.springframework.stereotype.Service
 
 @Service
 class AutoFollowService(private val twitterClient: TwitterClient) {
-	fun autoFollow(token: Token, followKeyWord: String){
+	fun autoFollow(token: Token, followKeyWord: String): List<TwitterUser>{
         // search followerId
         val accessToken: String = token.getAccessToken()
         val secret: String = token.getSecret()
@@ -20,11 +21,13 @@ class AutoFollowService(private val twitterClient: TwitterClient) {
         System.out.println("oneWayFriendsCount: ${oneWayFriends.size}")
 
         //if not send follow request and contains keyword
-        oneWayFriends
-                .filter{f -> (!f.sentRequest()) && f.matchDescriptionTo(followKeyWord)}
-                .forEach{
-					f -> twitterClient.createFriendShip(accessToken, secret, f.getId())
-					System.out.println("follow " + f.getScreanName())
-				}
+        return oneWayFriends
+                .asSequence()
+                .filter{ f -> (!f.sentRequest()) && f.matchDescriptionTo(followKeyWord)}
+                .map{ f ->
+                    twitterClient.createFriendShip(accessToken, secret, f.getId())
+                    f
+                }
+                .toList()
 	}
 }

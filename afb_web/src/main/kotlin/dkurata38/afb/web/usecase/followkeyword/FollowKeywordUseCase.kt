@@ -6,14 +6,22 @@ import org.springframework.stereotype.Service
 
 @Service
 class FollowKeywordUseCase(private val followKeywordJpaRepository: FollowKeywordRepository) {
-    fun configure(userId: Int, keyword: String){
-        //TODO findByRepository
-        var followKeyword: FollowKeyword? = null
+    fun configure(userId: Int, keyword: String): FollowKeyword{
+        var followKeyword: FollowKeyword? = followKeywordJpaRepository.findByUserId(userId)
         if (followKeyword == null){
             followKeyword = FollowKeyword(userId, keyword)
         } else {
             followKeyword.configure(keyword)
         }
-        followKeywordJpaRepository.saveAndFlush(followKeyword)
+        val savedKeyword = followKeywordJpaRepository.saveAndFlush(followKeyword)
+        return savedKeyword
+    }
+
+    fun getCurrentConfig(userId: Int): FollowKeyword{
+        var followKeyword: FollowKeyword? = followKeywordJpaRepository.findByUserId(userId)
+        if (followKeyword == null){
+            followKeyword = FollowKeyword.defaultKeyword(userId)
+        }
+        return followKeyword
     }
 }
