@@ -18,7 +18,7 @@
                     <form th:action="@{/connect/twitter}" method="POST" th:if="${userSession == null || !userSession.authenticated()}">
                         <button class="btn btn-primary">Twitterにログイン</button>
                     </form>
-                    <a class="btn btn-primary" href="/follow/config" th:if="${userSession != null &amp;&amp; userSession.authenticated()}">フォロバをする</a>
+                    <a class="btn btn-primary" href="/follow/" th:if="${userSession != null &amp;&amp; userSession.authenticated()}">フォロバをする</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
