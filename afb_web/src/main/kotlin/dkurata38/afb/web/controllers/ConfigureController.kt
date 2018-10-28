@@ -50,6 +50,6 @@ class ConfigureController(private val automateUserUseCase: AutomateUserUseCase,
 
 		automateUserUseCase.configureAutomation(userSession.getUser()!!.getId()!!, scheduled)
 		followKeywordUseCase.configure(userSession.getUser()!!.getId()!!, keyword)
-		return RedirectView("/follow/index")
+		return RedirectView("/follow/")
 	}
 }
