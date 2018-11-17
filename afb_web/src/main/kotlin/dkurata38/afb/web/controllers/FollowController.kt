@@ -1,7 +1,5 @@
 package dkurata38.afb.web.controllers
 
-import dkurata38.afb.domain.followkeyword.FollowKeyword
-import dkurata38.afb.domain.followkeyword.FollowKeywordRepository
 import dkurata38.afb.web.usecase.autofollow.FollowUseCase
 import dkurata38.afb.web.usecase.followkeyword.FollowKeywordUseCase
 import dkurata38.afb.web.usecase.security.UserSession
@@ -20,16 +18,6 @@ import javax.servlet.http.HttpSession
 @RequestMapping(value = ["/follow"])
 class FollowController(private val autoFollowUseCase: FollowUseCase, private val followKeywordUseCase: FollowKeywordUseCase,
                        private val httpSession: HttpSession) {
-    @GetMapping("/")
-    fun index(modelAndView: ModelAndView): ModelAndView {
-        val userSession = httpSession.getAttribute("userSession") as? UserSession?
-        if (userSession == null || !userSession.authenticated()) {
-            return ModelAndView("/home/index")
-        }
-        modelAndView.viewName = "/follow/index"
-        return modelAndView
-    }
-
 
     @GetMapping("/form")
     fun config(model: Model): ModelAndView {
