@@ -16,10 +16,7 @@ const followForm = (event) => {
     const form = <HTMLFormElement>document.createElement('form');
     form.id = "follow_form";
 
-    const keywordInput = <HTMLInputElement>document.createElement('input');
-    keywordInput.id = "keyword";
-    keywordInput.name = "keyword";
-    keywordInput.type = "text";
+    const keywordInput = createInputTextElement('keyword', 'キーワード')
     form.appendChild(keywordInput);
 
     modalContentElement.appendChild(form);
@@ -113,16 +110,10 @@ const configForm = (event: HTMLElementEvent<HTMLButtonElement>) => {
     const form = <HTMLFormElement>document.createElement('form');
     form.id = "follow_form";
 
-    const keywordInput = <HTMLInputElement>document.createElement('input');
-    keywordInput.id = "keyword";
-    keywordInput.name = "keyword";
-    keywordInput.type = "text";
+    const keywordInput = createInputTextElement('keyword', 'キーワード');
     form.appendChild(keywordInput);
 
-    const isScheduledInput = <HTMLInputElement>document.createElement('input');
-    isScheduledInput.id = "scheduled";
-    isScheduledInput.name = "scheduled";
-    isScheduledInput.type = "checkbox";
+    const isScheduledInput = createInputCheckboxElement('scheduled', 'フォロバを自動で行う')
     form.appendChild(isScheduledInput);
 
     modalContentElement.appendChild(form);
@@ -197,4 +188,43 @@ const resetModal = (listener: EventListener) => {
     if (listener !== null) {
         formButton.removeEventListener('click', listener)
     }
+};
+
+const createInputTextElement = (name: string, label: string) => {
+    const formWrapper = document.createElement('div');
+    formWrapper.className = 'form-group';
+
+    const labelElement = <HTMLLabelElement>document.createElement('label')
+    labelElement.htmlFor = name;
+    labelElement.innerText = label;
+    formWrapper.appendChild(labelElement);
+
+    const inputElement = <HTMLInputElement>document.createElement('input')
+    inputElement.name = name;
+    inputElement.id = name;
+    inputElement.type = 'text';
+    inputElement.className = 'form-control';
+    formWrapper.appendChild(inputElement);
+
+    return formWrapper;
+};
+
+const createInputCheckboxElement = (name: string, label: string) => {
+    const formWrapper = document.createElement('div');
+    formWrapper.className = 'form-group form-check';
+
+    const inputElement = <HTMLInputElement>document.createElement('input');
+    inputElement.name = name;
+    inputElement.id = name;
+    inputElement.type = 'checkbox';
+    inputElement.className = 'form-check-input';
+    formWrapper.appendChild(inputElement)
+
+    const labelElement = <HTMLLabelElement>document.createElement('label');
+    labelElement.htmlFor = name;
+    labelElement.className = 'form-check-label';
+    labelElement.innerText = label;
+    formWrapper.appendChild(labelElement);
+
+    return formWrapper;
 };

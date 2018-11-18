@@ -9,10 +9,7 @@ var followForm = function (event) {
     var modalContentElement = document.getElementById("modal-body");
     var form = document.createElement('form');
     form.id = "follow_form";
-    var keywordInput = document.createElement('input');
-    keywordInput.id = "keyword";
-    keywordInput.name = "keyword";
-    keywordInput.type = "text";
+    var keywordInput = createInputTextElement('keyword', 'キーワード');
     form.appendChild(keywordInput);
     modalContentElement.appendChild(form);
     var formButton = document.getElementById("form-button");
@@ -100,15 +97,9 @@ var configForm = function (event) {
     modalContentElement.innerHTML = null;
     var form = document.createElement('form');
     form.id = "follow_form";
-    var keywordInput = document.createElement('input');
-    keywordInput.id = "keyword";
-    keywordInput.name = "keyword";
-    keywordInput.type = "text";
+    var keywordInput = createInputTextElement('keyword', 'キーワード');
     form.appendChild(keywordInput);
-    var isScheduledInput = document.createElement('input');
-    isScheduledInput.id = "scheduled";
-    isScheduledInput.name = "scheduled";
-    isScheduledInput.type = "checkbox";
+    var isScheduledInput = createInputCheckboxElement('scheduled', 'フォロバを自動で行う');
     form.appendChild(isScheduledInput);
     modalContentElement.appendChild(form);
     var formButton = document.getElementById("form-button");
@@ -179,4 +170,35 @@ var resetModal = function (listener) {
     if (listener !== null) {
         formButton.removeEventListener('click', listener);
     }
+};
+var createInputTextElement = function (name, label) {
+    var formWrapper = document.createElement('div');
+    formWrapper.className = 'form-group';
+    var labelElement = document.createElement('label');
+    labelElement.htmlFor = name;
+    labelElement.innerText = label;
+    formWrapper.appendChild(labelElement);
+    var inputElement = document.createElement('input');
+    inputElement.name = name;
+    inputElement.id = name;
+    inputElement.type = 'text';
+    inputElement.className = 'form-control';
+    formWrapper.appendChild(inputElement);
+    return formWrapper;
+};
+var createInputCheckboxElement = function (name, label) {
+    var formWrapper = document.createElement('div');
+    formWrapper.className = 'form-group form-check';
+    var inputElement = document.createElement('input');
+    inputElement.name = name;
+    inputElement.id = name;
+    inputElement.type = 'checkbox';
+    inputElement.className = 'form-check-input';
+    formWrapper.appendChild(inputElement);
+    var labelElement = document.createElement('label');
+    labelElement.htmlFor = name;
+    labelElement.className = 'form-check-label';
+    labelElement.innerText = label;
+    formWrapper.appendChild(labelElement);
+    return formWrapper;
 };
