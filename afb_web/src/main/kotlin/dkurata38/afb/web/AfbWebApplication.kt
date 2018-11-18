@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.ComponentScans
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+
 //import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession
 
 @ComponentScans(ComponentScan("dkurata38.afb.domain"), ComponentScan("dkurata38.afb.infra"))

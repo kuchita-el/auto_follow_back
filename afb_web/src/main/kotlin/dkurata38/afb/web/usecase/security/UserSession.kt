@@ -1,14 +1,12 @@
 package dkurata38.afb.web.usecase.security
 
 import dkurata38.afb.domain.user.User
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.AuthorityUtils
 
-class UserSession internal constructor(){
+class UserSession internal constructor() {
 
     private var user: User? = null
 
-    constructor(user: User): this(){
+    constructor(user: User) : this() {
         this.user = user
     }
 

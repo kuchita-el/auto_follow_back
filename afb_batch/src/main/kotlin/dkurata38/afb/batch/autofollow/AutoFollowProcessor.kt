@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 
 class AutoFollowProcessor(private val userRepository: UserRepository,
-                          private val followKeywordRepository: FollowKeywordRepository): ItemProcessor<AutomateUser, AutoFollowResouceDto> {
+                          private val followKeywordRepository: FollowKeywordRepository) : ItemProcessor<AutomateUser, AutoFollowResouceDto> {
     private val log = LoggerFactory.getLogger(AutoFollowProcessor::class.java)
 
     /**
@@ -22,7 +22,7 @@ class AutoFollowProcessor(private val userRepository: UserRepository,
      * @throws Exception thrown if exception occurs during processing.
      */
     override fun process(item: AutomateUser?): AutoFollowResouceDto? {
-        if(item == null) {
+        if (item == null) {
             log.info("アイテムがありません")
             return null
         }
@@ -33,7 +33,7 @@ class AutoFollowProcessor(private val userRepository: UserRepository,
         }
 
         val followKeyword = followKeywordRepository.findByUserId(item.getUserId()!!)
-        if(followKeyword == null) {
+        if (followKeyword == null) {
             log.warn("キーワードが未設定です。")
             return null
         }

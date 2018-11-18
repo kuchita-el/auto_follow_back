@@ -1,7 +1,7 @@
 package dkurata38.afb.web.usecase.security
 
-import dkurata38.afb.domain.user.Token
 import dkurata38.afb.domain.user.SnsLoginId
+import dkurata38.afb.domain.user.Token
 import dkurata38.afb.domain.user.User
 import dkurata38.afb.domain.user.UserRepository
 import org.springframework.stereotype.Service
@@ -24,7 +24,7 @@ class TwitterAuthenticationUseCase(private val userRepository: UserRepository) {
             val userId = SnsLoginId(oAuthAccessToken.screenName)
             var user = userRepository.findBySnsLoginId(userId)
             val token = Token(oAuthAccessToken.token, oAuthAccessToken.tokenSecret)
-            if(user == null){
+            if (user == null) {
                 user = User(userId, twitterUser.name, token)
             } else {
                 user.updateToken(token)

@@ -5,12 +5,12 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-class SnsLoginId internal constructor(): Serializable{
+class SnsLoginId internal constructor() : Serializable {
 
     @Column(name = "snsUserId")
     private lateinit var snsUserId: String
 
-    constructor(sns_user_id: String): this(){
+    constructor(sns_user_id: String) : this() {
         this.snsUserId = sns_user_id
     }
 

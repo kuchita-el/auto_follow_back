@@ -14,7 +14,7 @@ class AutomateUser() {
     @Column(name = "user_id")
     private var userId: Int? = null
 
-    constructor(userId: Int): this(){
+    constructor(userId: Int) : this() {
         this.userId = userId
     }
 

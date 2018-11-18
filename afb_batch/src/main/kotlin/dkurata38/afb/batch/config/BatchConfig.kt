@@ -21,48 +21,48 @@ import org.springframework.data.domain.Sort
 @Configuration
 @EnableBatchProcessing
 class BatchConfig(
-		private val jobBuilderFactory: JobBuilderFactory,
-		private val stepBuilderFactory: StepBuilderFactory,
-		private val autoFollowService: AutoFollowService,
-		private val automateUserRepository: AutomateUserRepository,
-		private val userRepository: UserRepository,
-		private val followKeywordRepository: FollowKeywordRepository) {
+        private val jobBuilderFactory: JobBuilderFactory,
+        private val stepBuilderFactory: StepBuilderFactory,
+        private val autoFollowService: AutoFollowService,
+        private val automateUserRepository: AutomateUserRepository,
+        private val userRepository: UserRepository,
+        private val followKeywordRepository: FollowKeywordRepository) {
 
-	@Bean
-	fun autoFollowReader(): RepositoryItemReader<AutomateUser> {
-		val repositoryItemReader = RepositoryItemReader<AutomateUser>()
-		repositoryItemReader.setRepository(automateUserRepository)
-		repositoryItemReader.setMethodName("findAll")
+    @Bean
+    fun autoFollowReader(): RepositoryItemReader<AutomateUser> {
+        val repositoryItemReader = RepositoryItemReader<AutomateUser>()
+        repositoryItemReader.setRepository(automateUserRepository)
+        repositoryItemReader.setMethodName("findAll")
 
-		val sort = HashMap<String, Sort.Direction>()
-		sort["id"] = Sort.Direction.ASC
-		return repositoryItemReader
-	}
+        val sort = HashMap<String, Sort.Direction>()
+        sort["id"] = Sort.Direction.ASC
+        return repositoryItemReader
+    }
 
-	@Bean
-	fun autoFollowProcessor(): AutoFollowProcessor{
-		return AutoFollowProcessor(userRepository, followKeywordRepository)
-	}
+    @Bean
+    fun autoFollowProcessor(): AutoFollowProcessor {
+        return AutoFollowProcessor(userRepository, followKeywordRepository)
+    }
 
-	@Bean
-	fun autoFollowWriter(): AutoFollowWriter {
-		return AutoFollowWriter(autoFollowService)
-	}
-	
-	@Bean
-	fun step(): Step {
-		return stepBuilderFactory.get("step1")
-				.chunk<AutomateUser, AutoFollowResouceDto>(10)
-				.reader(autoFollowReader())
-				.processor(autoFollowProcessor())
-				.writer(autoFollowWriter())
-				.build()
-	}
-	
-	@Bean
-	fun job(): Job {
-		return jobBuilderFactory.get("job1")
-				.start(step())
-				.build()
-	}
+    @Bean
+    fun autoFollowWriter(): AutoFollowWriter {
+        return AutoFollowWriter(autoFollowService)
+    }
+
+    @Bean
+    fun step(): Step {
+        return stepBuilderFactory.get("step1")
+                .chunk<AutomateUser, AutoFollowResouceDto>(10)
+                .reader(autoFollowReader())
+                .processor(autoFollowProcessor())
+                .writer(autoFollowWriter())
+                .build()
+    }
+
+    @Bean
+    fun job(): Job {
+        return jobBuilderFactory.get("job1")
+                .start(step())
+                .build()
+    }
 }
