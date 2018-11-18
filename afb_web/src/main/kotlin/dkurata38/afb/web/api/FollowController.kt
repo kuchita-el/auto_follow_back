@@ -26,4 +26,9 @@ class FollowController(private val httpSession: HttpSession, private val autoFol
                 autoFollowUseCase.autoFollow(userSession.getUser()!!.getToken(), keyword.keyword)
         return PostFollowResponse(200, followedUser.size)
     }
+
+    @PostMapping(value = ["/automate"])
+    fun automate(): ApiResponse {
+        return ApiResponse(200)
+    }
 }

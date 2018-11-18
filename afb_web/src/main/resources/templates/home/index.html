@@ -24,12 +24,12 @@
                     <form th:action="@{/connect/twitter}" method="POST" th:if="${userSession == null || !userSession.authenticated()}">
                         <button class="btn btn-primary">Twitterにログイン</button>
                     </form>
-                    <button id="follow_form_button" class="btn btn-primary" th:onclick="followForm" th:if="${userSession != null &amp;&amp; userSession.authenticated()}" data-toggle="modal" data-target="#modalCenter">
+                    <button id="follow_form_button" class="btn btn-primary" th:if="${userSession != null &amp;&amp; userSession.authenticated()}" data-toggle="modal" data-target="#modalCenter">
                         今すぐフォロバする
                     </button>
-                    <a class="btn btn-light" href="/configure/form" th:if="${userSession != null &amp;&amp; userSession.authenticated()}" data-toggle="modal" data-target="#modalCenter">
+                    <button id="config_form_button" class="btn btn-light" th:if="${userSession != null &amp;&amp; userSession.authenticated()}" data-toggle="modal" data-target="#modalCenter">
                         フォロバの条件を設定する
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
