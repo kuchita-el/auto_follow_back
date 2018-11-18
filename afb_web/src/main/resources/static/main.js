@@ -17,13 +17,15 @@ var followForm = function (event) {
     var listener = function (ev) { return postFollow(ev); };
     formButton.addEventListener('click', listener);
     fetch('/api/follow_keyword/', { method: 'GET' })
-        .catch(function (e) { return alert("エラーが発生しました。もう一度試してください。"); })
+        .catch(function (e) {
+        closeModal(listener);
+        alert("エラーが発生しました。もう一度試してください。");
+    })
         .then(function (response) { return response.json(); })
         .then(function (json) {
         var status = json['statusCode'];
         if (status === 401) {
-            resetModal(listener);
-            document.getElementById('close-button').click;
+            closeModal(listener);
             alert("ログインしてください。");
         }
         var keyword = json["keyword"];
@@ -36,14 +38,15 @@ var postFollow = function (event) {
     var data = JSON.stringify({ 'keyword': keyword });
     var token = document.querySelector("meta[name='_csrf']").getAttribute("content");
     var c_header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
-    fetch("/api/follow_keyword/", { method: 'PATCH', headers: (_a = {
+    fetch("/api/follow_keyword/", {
+        method: 'PATCH', headers: (_a = {
                 'Content-Type': 'application/json;charset=UTF-8'
             },
             _a[c_header] = token,
-            _a), body: data })
+            _a), body: data
+    })
         .catch(function (e) {
         alert("エラーが発生しました。もう一度試してください。");
-        resetModal(function (ev) { return postFollow(ev); });
     })
         .then(function (response) { return response.json(); })
         .then(function (json) {
@@ -52,8 +55,7 @@ var postFollow = function (event) {
         if (status === 400)
             alert("キーワードを入力してください。");
         else if (status === 401) {
-            resetModal(function (ev) { return postFollow(ev); });
-            document.getElementById('close-button').click;
+            closeModal(function (ev) { return postFollow(ev); });
             alert("ログインしてください。");
         }
         else if (status === 200) {
@@ -65,7 +67,6 @@ var postFollow = function (event) {
                     _a), body: data
             })
                 .catch(function (e) {
-                resetModal(function (ev) { return postFollow(ev); });
                 alert("エラーが発生しました。もう一度試してください。");
             })
                 .then(function (response) { return response.json(); })
@@ -75,13 +76,11 @@ var postFollow = function (event) {
                 if (status === 400)
                     alert("キーワードを入力してください。");
                 else if (status === 403) {
-                    resetModal(function (ev) { return postFollow(ev); });
-                    document.getElementById('close-button').click;
+                    closeModal(function (ev) { return postFollow(ev); });
                     alert("ログインしてください。");
                 }
                 else if (status === 200) {
-                    resetModal(function (ev) { return postFollow(ev); });
-                    document.getElementById('close-button').click;
+                    closeModal(function (ev) { return postFollow(ev); });
                     alert(json['followCount'] + "\u4EBA\u30D5\u30A9\u30ED\u30FC\u3057\u307E\u3057\u305F\u3002");
                 }
             });
@@ -108,15 +107,14 @@ var configForm = function (event) {
     formButton.addEventListener('click', listener);
     fetch('/api/config/', { method: 'GET' })
         .catch(function (e) {
-        resetModal(listener);
+        closeModal(listener);
         alert("エラーが発生しました。もう一度試してください。");
     })
         .then(function (response) { return response.json(); })
         .then(function (json) {
         var status = json['statusCode'];
         if (status === 401) {
-            resetModal(listener);
-            document.getElementById('close-button').click;
+            closeModal(listener);
             alert("ログインしてください。");
         }
         var keyword = json["keyword"];
@@ -134,14 +132,15 @@ var postConfig = function (event) {
     var data = JSON.stringify({ 'keyword': keyword, 'scheduled': scheduled });
     var token = document.querySelector("meta[name='_csrf']").getAttribute("content");
     var c_header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
-    fetch("api/config/", { method: 'PATCH', headers: (_a = {
+    fetch("api/config/", {
+        method: 'PATCH', headers: (_a = {
                 'Content-Type': 'application/json;charset=UTF-8'
             },
             _a[c_header] = token,
-            _a), body: data })
+            _a), body: data
+    })
         .catch(function (e) {
         alert("エラーが発生しました。もう一度試してください。");
-        resetModal(function (ev) { return postConfig(ev); });
     })
         .then(function (response) { return response.json(); })
         .then(function (json) {
@@ -149,13 +148,11 @@ var postConfig = function (event) {
         if (status === 400)
             alert("キーワードを入力してください。");
         else if (status === 401) {
-            resetModal(function (ev) { return postConfig(ev); });
-            document.getElementById('close-button').click;
+            closeModal(function (ev) { return postConfig(ev); });
             alert("ログインしてください。");
         }
         else if (status === 200) {
-            resetModal(function (ev) { return postConfig(ev); });
-            document.getElementById('close-button').click;
+            closeModal(function (ev) { return postConfig(ev); });
             alert("設定を保存しました。");
         }
     });
@@ -201,4 +198,8 @@ var createInputCheckboxElement = function (name, label) {
     labelElement.innerText = label;
     formWrapper.appendChild(labelElement);
     return formWrapper;
+};
+var closeModal = function (listener) {
+    document.getElementById('close-button').click();
+    resetModal(listener);
 };

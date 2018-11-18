@@ -3,7 +3,10 @@ package dkurata38.afb.web.api
 import dkurata38.afb.web.usecase.autofollow.FollowUseCase
 import dkurata38.afb.web.usecase.security.UserSession
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpSession
 
 @RestController

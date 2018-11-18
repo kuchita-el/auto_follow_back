@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class AutoFollowService(private val twitterClient: TwitterClient) {
-	fun autoFollow(token: Token, followKeyWord: String): List<TwitterUser>{
+    fun autoFollow(token: Token, followKeyWord: String): List<TwitterUser> {
         // search followerId
         val accessToken: String = token.getAccessToken()
         val secret: String = token.getSecret()
@@ -23,11 +23,11 @@ class AutoFollowService(private val twitterClient: TwitterClient) {
         //if not send follow request and contains keyword
         return oneWayFriends
                 .asSequence()
-                .filter{ f -> (!f.sentRequest()) && f.matchDescriptionTo(followKeyWord)}
-                .map{ f ->
+                .filter { f -> (!f.sentRequest()) && f.matchDescriptionTo(followKeyWord) }
+                .map { f ->
                     twitterClient.createFriendShip(accessToken, secret, f.getId())
                     f
                 }
                 .toList()
-	}
+    }
 }

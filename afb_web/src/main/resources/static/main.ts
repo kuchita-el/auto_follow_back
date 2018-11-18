@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
     document.querySelector("#follow_form_button").addEventListener('click', (event: HTMLElementEvent<HTMLButtonElement>) => followForm(event));
     document.querySelector("#config_form_button").addEventListener('click', (event: HTMLElementEvent<HTMLButtonElement>) => configForm(event));
 }, false);
@@ -29,13 +29,15 @@ const followForm = (event) => {
 
 
     fetch('/api/follow_keyword/', {method: 'GET'})
-        .catch(e => alert("エラーが発生しました。もう一度試してください。"))
+        .catch(e => {
+            closeModal(listener);
+            alert("エラーが発生しました。もう一度試してください。");
+        })
         .then((response: Response) => response.json())
         .then((json: JSON) => {
             const status = json['statusCode'];
             if (status === 401) {
-                resetModal(listener);
-                (<HTMLButtonElement>document.getElementById('close-button')).click;
+                closeModal(listener);
                 alert("ログインしてください。");
             }
             const keyword = json["keyword"];
@@ -50,21 +52,21 @@ const postFollow = (event: HTMLElementEvent<HTMLButtonElement>) => {
     const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
     const c_header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
 
-    fetch("/api/follow_keyword/", {method: 'PATCH', headers: {
+    fetch("/api/follow_keyword/", {
+        method: 'PATCH', headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             [c_header]: token
-        }, body: data})
+        }, body: data
+    })
         .catch(e => {
             alert("エラーが発生しました。もう一度試してください。");
-            resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
         })
         .then((response: Response) => response.json())
         .then((json: JSON) => {
             const status = json['statusCode'];
             if (status === 400) alert("キーワードを入力してください。");
             else if (status === 401) {
-                resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
-                (<HTMLButtonElement>document.getElementById('close-button')).click;
+                closeModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
                 alert("ログインしてください。");
             }
             else if (status === 200) {
@@ -75,7 +77,6 @@ const postFollow = (event: HTMLElementEvent<HTMLButtonElement>) => {
                     }, body: data
                 })
                     .catch(e => {
-                        resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
                         alert("エラーが発生しました。もう一度試してください。")
                     })
                     .then((response: Response) => response.json())
@@ -84,14 +85,12 @@ const postFollow = (event: HTMLElementEvent<HTMLButtonElement>) => {
                         const status = json['statusCode'];
                         if (status === 400) alert("キーワードを入力してください。");
                         else if (status === 403) {
-                            resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
-                            (<HTMLButtonElement>document.getElementById('close-button')).click;
+                            closeModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
                             alert("ログインしてください。");
 
                         }
                         else if (status === 200) {
-                            resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
-                            (<HTMLButtonElement>document.getElementById('close-button')).click;
+                            closeModal((ev: HTMLElementEvent<HTMLButtonElement>) => postFollow(ev));
                             alert(`${json['followCount']}人フォローしました。`);
                         }
                     });
@@ -125,15 +124,14 @@ const configForm = (event: HTMLElementEvent<HTMLButtonElement>) => {
 
     fetch('/api/config/', {method: 'GET'})
         .catch(e => {
-            resetModal(listener);
+            closeModal(listener);
             alert("エラーが発生しました。もう一度試してください。");
         })
         .then((response: Response) => response.json())
         .then((json: JSON) => {
             const status = json['statusCode'];
             if (status === 401) {
-                resetModal(listener);
-                (<HTMLButtonElement>document.getElementById('close-button')).click;
+                closeModal(listener);
                 alert("ログインしてください。");
             }
             const keyword = json["keyword"];
@@ -153,30 +151,30 @@ const postConfig = (event: HTMLElementEvent<HTMLButtonElement>) => {
     const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
     const c_header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
 
-    fetch("api/config/", {method: 'PATCH', headers: {
+    fetch("api/config/", {
+        method: 'PATCH', headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             [c_header]: token
-        }, body: data})
+        }, body: data
+    })
         .catch(e => {
             alert("エラーが発生しました。もう一度試してください。");
-            resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postConfig(ev));
         })
         .then((response: Response) => response.json())
         .then((json: JSON) => {
             const status = json['statusCode'];
             if (status === 400) alert("キーワードを入力してください。");
             else if (status === 401) {
-                resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postConfig(ev));
-                (<HTMLButtonElement>document.getElementById('close-button')).click;
+                closeModal((ev: HTMLElementEvent<HTMLButtonElement>) => postConfig(ev));
                 alert("ログインしてください。");
             }
             else if (status === 200) {
-                resetModal((ev: HTMLElementEvent<HTMLButtonElement>) => postConfig(ev));
-                (<HTMLButtonElement>document.getElementById('close-button')).click;
+                closeModal((ev: HTMLElementEvent<HTMLButtonElement>) => postConfig(ev));
                 alert("設定を保存しました。");
             }
         });
-    return};
+    return
+};
 
 const resetModal = (listener: EventListener) => {
     document.getElementById("modalCenterTitle").innerText = null;
@@ -218,7 +216,7 @@ const createInputCheckboxElement = (name: string, label: string) => {
     inputElement.id = name;
     inputElement.type = 'checkbox';
     inputElement.className = 'form-check-input';
-    formWrapper.appendChild(inputElement)
+    formWrapper.appendChild(inputElement);
 
     const labelElement = <HTMLLabelElement>document.createElement('label');
     labelElement.htmlFor = name;
@@ -227,4 +225,9 @@ const createInputCheckboxElement = (name: string, label: string) => {
     formWrapper.appendChild(labelElement);
 
     return formWrapper;
+};
+
+const closeModal = (listener: EventListener) => {
+    document.getElementById('close-button').click();
+    resetModal(listener);
 };

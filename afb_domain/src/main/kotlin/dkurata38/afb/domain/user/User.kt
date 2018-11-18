@@ -9,19 +9,20 @@ class User internal constructor() : Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "seq_user_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user_id")
     @SequenceGenerator(name = "seq_user_id", sequenceName = "seq_user_id")
     private var id: Int? = null
 
     @Embedded
     private var snsLoginId: SnsLoginId? = null
 
-    @Column(name="display_name")
+    @Column(name = "display_name")
     private var displayName: String? = null
 
     @Embedded
     private var token: Token? = null
-    constructor(snsLoginId: SnsLoginId, displayName: String, token: Token):this(){
+
+    constructor(snsLoginId: SnsLoginId, displayName: String, token: Token) : this() {
         this.snsLoginId = snsLoginId
         this.displayName = displayName
         this.token = token

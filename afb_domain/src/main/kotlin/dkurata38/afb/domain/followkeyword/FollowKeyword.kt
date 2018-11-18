@@ -1,13 +1,12 @@
 package dkurata38.afb.domain.followkeyword
 
-import dkurata38.afb.domain.user.SnsLoginId
 import java.io.Serializable
 import javax.persistence.*
 
 
 @Entity
 @Table(name = "follow_keyword")
-class FollowKeyword internal constructor() :Serializable{
+class FollowKeyword internal constructor() : Serializable {
 
     @Id
     @Column(name = "id")
@@ -20,7 +19,7 @@ class FollowKeyword internal constructor() :Serializable{
 
     private var keyword: String? = null
 
-    constructor(userId: Int, keyword: String):this(){
+    constructor(userId: Int, keyword: String) : this() {
         this.userId = userId
         this.keyword = keyword
     }
